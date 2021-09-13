@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
@@ -8,6 +9,13 @@ const positionRoutes = require('./routes/position')
 const app = express()
 const cors = require('cors')  //обработка корс запросов
 const morgan = require('morgan')  // логирование определенных запросов
+const keys = require('./config/keys')
+
+
+mongoose.connect(keys.mongoURI)
+    .then(()=> console.log('MongoDB connected.'))
+    .catch(error=> console.log(error))
+
 
 app.use(morgan('dev'))
 app.use(cors())
