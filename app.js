@@ -6,8 +6,11 @@ const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const app = express()
+const cors = require('cors')  //обработка корс запросов
+const morgan = require('morgan')  // логирование определенных запросов
 
-
+app.use(morgan('dev'))
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
