@@ -6,21 +6,17 @@ const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
-const app = express()
-const cors = require('cors')  //обработка корс запросов
-const morgan = require('morgan')  // логирование определенных запросов
 const keys = require('./config/keys')
-
+const app = express()
 
 mongoose.connect(keys.mongoURI)
-    .then(()=> console.log('MongoDB connected.'))
-    .catch(error=> console.log(error))
+  .then(() => console.log('MongoDB connected.'))
+  .catch(error => console.log(error))
 
-
-app.use(morgan('dev'))
-app.use(cors())
+app.use(require('morgan')('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(require('cors')())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/analytics', analyticsRoutes)
